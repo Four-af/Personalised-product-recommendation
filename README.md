@@ -58,6 +58,12 @@ Start the server
 ```bash
   python app.py
 ```
+To generate random data(userId, productId, ratings, timestamp) for the Dataset
+
+```bash
+  python dataset.py
+```
+
 
 
 ## Contributors
