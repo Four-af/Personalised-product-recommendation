@@ -176,7 +176,7 @@ pivot_matrix = pivot_df.to_numpy()
 # Applying Singular Value Decomposition (SVD) on pivot_df, obtaining U, sigma, and Vt matrices
 U, sigma, Vt = svds(pivot_matrix, k=10)
 
-# Converting sigma into a diagonal matrix
+# Converting sigma into a diagonal matrixx
 sigma = np.diag(sigma)
 print('Diagonal matrix: \n', sigma)
 
