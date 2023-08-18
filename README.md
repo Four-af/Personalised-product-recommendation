@@ -1,5 +1,5 @@
 # Personalised Product Recommendation System
-## Flipkart 5.0
+## Flipkart GRiD 5.0
 This code implements a personalized product recommendation system using collaborative filtering and Singular Value Decomposition (SVD) for generating user-specific recommendations. Here's a brief overview of the code:
 
 ## Roadmap
