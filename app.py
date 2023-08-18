@@ -20,7 +20,7 @@ import gzip
 columns = ['userId', 'productId', 'ratings', 'timestamp']
 
 # Read the CSV file and store the data in a DataFrame
-df = pd.read_csv('all_csv_files.csv', names=columns, nrows=50_000)
+df = pd.read_csv('personalised_product_recommendation.csv', names=columns, nrows=50_000)
 
 # Print descriptive statistics of the DataFrame
 print(df.describe())
