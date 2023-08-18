@@ -23,27 +23,38 @@ columns = ['userId', 'productId', 'ratings', 'timestamp']
 df = pd.read_csv('personalised_product_recommendation.csv', names=columns, nrows=50_000)
 
 # Print descriptive statistics of the DataFrame
+print("\n--------------Statistics of the DataSet--------------")
 print(df.describe())
+print("-----------------------------------------------------\n")
 
 # Print the first few rows of the DataFrame
+print("\n-----------First few rows of the DataSet-----------")
 print(df.head())
+print("-----------------------------------------------------\n")
 
 # Drop the 'timestamp' column from the DataFrame
 df.drop('timestamp', axis=1, inplace=True)
 
 # Print information about the DataFrame
+print("\n-----------Information about the DataSet-----------")
 print(df.info())
+print("-----------------------------------------------------\n")
 
 # Calculate and print descriptive statistics of the 'ratings' column
+print("\n---------Statistics of the 'ratings' column---------")
 print(df['ratings'].describe().transpose())
+print("-----------------------------------------------------\n")
 
+# Convert all data in ratings column to numeric
+# Add Nan for missing values
+df['ratings'] = pd.to_numeric(df['ratings'], errors='coerce')
 # Print the minimum rating
-print(f"Minimum rating is: {df['ratings'].min()}")
-
+print(f"+ Minimum rating is: {int(df['ratings'].min())}")
 # Print the maximum rating
-print(f"Maximum rating is: {df['ratings'].max()}")
+print(f"+ Maximum rating is: {int(df['ratings'].max())}\n")
 
 # Check for missing values across columns
+# Check for Nan values in the columns 
 print('Number of missing values across columns:\n', df.isnull().sum())
 
 # Generate a histogram of the 'ratings' column
