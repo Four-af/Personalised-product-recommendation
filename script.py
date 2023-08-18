@@ -17,6 +17,6 @@ data = {
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-df.to_csv('generated_dataset.csv', index=False)
+df.to_csv('personalised_product_recommendation.csv', index=False)
 
-print('Generated dataset saved to generated_dataset.csv')
+print('Generated dataset saved to personalised_product_recommendation.csv')
