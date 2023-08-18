@@ -169,7 +169,7 @@ U, sigma, Vt = svds(pivot_matrix, k=k)
 # Converting sigma into a diagonal matrix
 sigma = np.diag(sigma)
 print('Diagonal matrix: \n', sigma)
-
+print('\n\n\n\n\n')
 # Calculating the predicted ratings by performing matrix multiplication using U, sigma, and Vt
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt)
 
@@ -202,7 +202,7 @@ recommend_items(userID, pivot_df, preds_df, num_recommendations)
 
 final_ratings_matrix.head()
 
-final_ratings_matrix.mean().head()
+# final_ratings_matrix.mean().head()
 
 preds_df.head()
 
