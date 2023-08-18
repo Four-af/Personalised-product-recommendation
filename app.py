@@ -171,14 +171,16 @@ pivot_df['user_index'] = np.arange(0, pivot_df.shape[0], 1)
 # Setting 'user_index' as the new index of pivot_df
 pivot_df.set_index(['user_index'], inplace=True)
 pivot_matrix = pivot_df.to_numpy()
+pivot_matrix = pivot_matrix.astype(float)
+k = min(pivot_matrix.shape) - 1  # Choose k to be one less than the minimum of rows and columns
 
 # Applying Singular Value Decomposition (SVD) on pivot_df, obtaining U, sigma, and Vt matrices
-U, sigma, Vt = svds(pivot_matrix, k=10)
+U, sigma, Vt = svds(pivot_matrix, k=k)
 
 # Converting sigma into a diagonal matrix
 sigma = np.diag(sigma)
 print('Diagonal matrix: \n', sigma)
-
+print('\n\n\n\n\n')
 # Calculating the predicted ratings by performing matrix multiplication using U, sigma, and Vt
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt)
 
@@ -188,9 +190,13 @@ preds_df.head()
 
 # Defining a function to recommend items to a user based on user ID, pivot_df, preds_df, and the number of recommendations
 def recommend_items(userID, pivot_df, preds_df, num_recommendations):
-    user_idx = userID - 1  # Index starts at 0
+    user_idx = userID - 1  # Convert to 0-based index
+    if user_idx < 0 or user_idx >= pivot_df.shape[0]:
+        print("Invalid userID")
+        return
+
     sorted_user_ratings = pivot_df.iloc[user_idx].sort_values(ascending=False)
-    sorted_user_predictions = preds_df.iloc[user_idx].sort_values(ascending=False)
+    sorted_user_predictions = preds_df.iloc[user_idx]
     temp = pd.concat([sorted_user_ratings, sorted_user_predictions], axis=1)
     temp.index.name = 'Recommended Items'
     temp.columns = ['user_ratings', 'user_predictions']
@@ -207,7 +213,7 @@ recommend_items(userID, pivot_df, preds_df, num_recommendations)
 
 final_ratings_matrix.head()
 
-final_ratings_matrix.mean().head()
+# final_ratings_matrix.mean().head()
 
 preds_df.head()
 
