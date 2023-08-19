@@ -66,7 +66,9 @@ plt.hist(df["ratings"])
 most_rated = df.groupby('userId').size().sort_values(ascending=False)[:10]
 
 # Print the top 10 users based on ratings
-print('Top 10 users based on ratings: \n', most_rated)
+print('\n----Top 10 users based on ratings----\n', most_rated)
+print("-------------------------------------------------\n")
+
 
 # Count the number of ratings for each user
 counts = df.userId.value_counts()
@@ -75,13 +77,13 @@ counts = df.userId.value_counts()
 df_final = df[df.userId.isin(counts[counts >= 15].index)]
 
 # Print the number of users who have rated 25 or more items
-print('Number of users who have rated 25 or more items =', len(df_final))
+print('+ Number of users who have rated 15 or more items =', len(df_final))
 
 # Print the number of unique users in the final data
-print('Number of unique users in the final data = ', df_final['userId'].nunique())
+print('+ Number of unique users in the final data = ', df_final['userId'].nunique())
 
 # Print the number of unique products in the final data
-print('Number of unique products in the final data = ', df_final['productId'].nunique())
+print('+ Number of unique products in the final data = ', df_final['productId'].nunique())
 
 # Remove duplicate user entries to ensure unique user IDs in the final DataFrame
 df_final = df_final.drop_duplicates(subset='userId')
@@ -90,11 +92,13 @@ df_final = df_final.drop_duplicates(subset='userId')
 # Fill missing values with 0
 final_ratings_matrix = df_final.pivot(index='userId', columns='productId', values='ratings').fillna(0)
 
+print("\n------------------PIVOT TABLE-------------------")
 # Print the first few rows of the final ratings matrix
 print(final_ratings_matrix.head())
+print("-------------------------------------------------\n")
 
 # Print the shape of the final ratings matrix
-print('Shape of final_ratings_matrix: ', final_ratings_matrix.shape)
+print('\nShape of final_ratings_matrix: ', final_ratings_matrix.shape)
 
 # Calculate the number of non-zero ratings in the final ratings matrix
 given_num_of_ratings = np.count_nonzero(final_ratings_matrix)
@@ -121,7 +125,10 @@ train_data = train_data.groupby('productId').agg({'userId': 'count'}).reset_inde
 train_data.rename(columns={'userId': 'score'}, inplace=True)
 
 # Printing the first 40 rows of the train_data DataFrame
+print("\n---------------TRAIN DATA FRAME----------------")
 print(train_data.head(40))
+print("-------------------------------------------------\n")
+
 
 # Sorting the train_data DataFrame by 'score' and 'productId' in descending and ascending order respectively
 train_data_sort = train_data.sort_values(['score', 'productId'], ascending=[0, 1])
@@ -133,7 +140,10 @@ train_data_sort['rank'] = train_data_sort['score'].rank(ascending=0, method='fir
 popularity_recommendations = train_data_sort.head(5)
 
 # Printing the top 5 recommendations
+print("\n------------POPULAR RECOMMENDATIONS-------------")
 print(popularity_recommendations)
+print("-------------------------------------------------\n")
+
 #### recommend base on popularity
 # Defining a function to recommend products to a user
 def recommend(user_id):

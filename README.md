@@ -68,6 +68,6 @@ To generate random data(userId, productId, ratings, timestamp) for the Dataset
 
 ## Contributors
 
-- [Ayesha Khan](https://github.com/fizaayesha)
-- [Aiman Fatima](https://github.com/Four-af/)
-- [Heeba Khan](https://github.com/heeba-khan)
+- [fizaayesha](https://github.com/fizaayesha)
+- [heeba-khan](https://github.com/heeba-khan)
+- [Four-af](https://github.com/Four-af/)
