@@ -57,6 +57,7 @@ print(f"+ Maximum rating is: {int(df['ratings'].max())}\n")
 # Check for Nan values in the columns 
 print('Number of missing values across columns:\n', df.isnull().sum())
 
+
 # Generate a histogram of the 'ratings' column
 plt.hist(df["ratings"])
 # plt.show()
@@ -181,16 +182,17 @@ pivot_df['user_index'] = np.arange(0, pivot_df.shape[0], 1)
 # Setting 'user_index' as the new index of pivot_df
 pivot_df.set_index(['user_index'], inplace=True)
 pivot_matrix = pivot_df.to_numpy()
-pivot_matrix = pivot_matrix.astype(float)
+# Ensure k is within the valid range
 k = min(pivot_matrix.shape) - 1  # Choose k to be one less than the minimum of rows and columns
 
-# Applying Singular Value Decomposition (SVD) on pivot_df, obtaining U, sigma, and Vt matrices
+# Applying Singular Value Decomposition (SVD) on pivot_matrix, obtaining U, sigma, and Vt matrices
 U, sigma, Vt = svds(pivot_matrix, k=k)
 
-# Converting sigma into a diagonal matrix
+
+# Converting sigma into a diagonal matrixx
 sigma = np.diag(sigma)
 print('Diagonal matrix: \n', sigma)
-print('\n\n\n\n\n')
+
 # Calculating the predicted ratings by performing matrix multiplication using U, sigma, and Vt
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt)
 
@@ -206,7 +208,7 @@ def recommend_items(userID, pivot_df, preds_df, num_recommendations):
         return
 
     sorted_user_ratings = pivot_df.iloc[user_idx].sort_values(ascending=False)
-    sorted_user_predictions = preds_df.iloc[user_idx]
+    sorted_user_predictions = preds_df.iloc[user_idx].sort_values(ascending=False)
     temp = pd.concat([sorted_user_ratings, sorted_user_predictions], axis=1)
     temp.index.name = 'Recommended Items'
     temp.columns = ['user_ratings', 'user_predictions']
@@ -223,7 +225,7 @@ recommend_items(userID, pivot_df, preds_df, num_recommendations)
 
 final_ratings_matrix.head()
 
-# final_ratings_matrix.mean().head()
+final_ratings_matrix.mean().head()
 
 preds_df.head()
 
