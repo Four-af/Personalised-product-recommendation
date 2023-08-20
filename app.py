@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
 import math
+import pyfiglet
 import json
 import time
+import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics.pairwise import cosine_similarity
@@ -155,15 +157,14 @@ def recommend(user_id):
     user_recommendations = popularity_recommendations
 
     # Adding a 'userId' column with the specified user_id for which recommendations are being generated
-    print("-------------------------------------------------\n")
     user_recommendations['userId'] = user_id
+
     # Reordering the columns, bringing 'userId' to the front
     cols = user_recommendations.columns.tolist()
     cols = cols[-1:] + cols[:-1]
     user_recommendations = user_recommendations[cols]
-    print("-------------------------------------------------\n")
-    return user_recommendations
 
+    return user_recommendations
 
 
 # List of user choices for recommendations
@@ -171,7 +172,6 @@ find_recom = [25, 140, 190]
 
 # Iterating over each user ID in the find_recom list
 for i in find_recom:
-    print("-------------------------------------------------\n")
     print("The list of recommendations for the userId: %d\n" % i)
     print(recommend(i))
     print("\n")
@@ -245,9 +245,27 @@ rmse_df.head()
 
 # Calculating the Root Mean Square Error (RMSE) between the average actual ratings and average predicted ratings
 RMSE = round((((rmse_df.Avg_actual_ratings - rmse_df.Avg_predicted_ratings) ** 2).mean() ** 0.5), 5)
-print('--------RMSE SVD Model = {} '.format(RMSE),'--------')
+print('--------RMSE SVD Model = {}'.format(RMSE),'--------')
 
 # Recommending items for a specific user (user ID = 9) with a specified number of recommendations
 userID = 9
 num_recommendations = 5
 recommend_items(userID, pivot_df, preds_df, num_recommendations)
+
+def print_large_font_centered(text):
+    font = pyfiglet.Figlet(font='big')
+    ascii_art = font.renderText(text)
+    
+    # Get the width of the console
+    console_width = os.get_terminal_size().columns
+    
+    # Calculate the padding needed to center the text
+    padding = (console_width - len(ascii_art.split('\n')[0])) // 2
+    
+    # Print the centered ASCII art
+    for line in ascii_art.split('\n'):
+        print(' ' * padding + line)
+
+if __name__ == "__main__":
+    message = "Thank You"
+    print_large_font_centered(message)
