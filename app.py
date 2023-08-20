@@ -69,7 +69,13 @@ most_rated_df = most_rated.reset_index()
 most_rated_df.index=most_rated_df.index+1;
 most_rated_df.columns=['User ID','Most Rated']
 # Print the top 10 users based on ratings
+<<<<<<<<< Temporary merge branch 1
+print('\n----Top 10 users based on ratings----\n', most_rated)
+print("-------------------------------------------------\n")
+
+=========
 print('------------Top 10 users based on ratings:----------- \n', most_rated_df)
+>>>>>>>>> Temporary merge branch 2
 
 # Count the number of ratings for each user
 counts = df.userId.value_counts()
@@ -137,7 +143,11 @@ popularity_recommendations = train_data_sort.head(5)
 
 # Printing the top 5 recommendations
 print(popularity_recommendations)
+<<<<<<<<< Temporary merge branch 1
+print("-------------------------------------------------\n")
+=========
 print("-----------------------------------------------------\n")
+>>>>>>>>> Temporary merge branch 2
 
 #### recommend base on popularity
 # Defining a function to recommend products to a user
