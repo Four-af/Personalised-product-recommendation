@@ -52,28 +52,31 @@ df['ratings'] = pd.to_numeric(df['ratings'], errors='coerce')
 print(f"+ Minimum rating is: {int(df['ratings'].min())}")
 # Print the maximum rating
 print(f"+ Maximum rating is: {int(df['ratings'].max())}\n")
-
+print("-----------------------------------------------------\n")
 # Check for missing values across columns
 # Check for Nan values in the columns 
+
 print('Number of missing values across columns:\n', df.isnull().sum())
 
 
 # Generate a histogram of the 'ratings' column
 plt.hist(df["ratings"])
-# plt.show()
-
+plt.show()
+print("-----------------------------------------------------\n")
 # Calculate the number of ratings per user and sort them in descending order
 most_rated = df.groupby('userId').size().sort_values(ascending=False)[:10]
-
+most_rated_df = most_rated.reset_index()
+most_rated_df.index=most_rated_df.index+1;
+most_rated_df.columns=['User ID','Most Rated']
 # Print the top 10 users based on ratings
-print('Top 10 users based on ratings: \n', most_rated)
+print('------------Top 10 users based on ratings:----------- \n', most_rated_df)
 
 # Count the number of ratings for each user
 counts = df.userId.value_counts()
 
+print("-----------------------------------------------------\n")
 # Filter the DataFrame to include only users who have rated 15 or more items
 df_final = df[df.userId.isin(counts[counts >= 15].index)]
-
 # Print the number of users who have rated 25 or more items
 print('Number of users who have rated 25 or more items =', len(df_final))
 
@@ -103,11 +106,11 @@ given_num_of_ratings = np.count_nonzero(final_ratings_matrix)
 possible_num_of_ratings = final_ratings_matrix.shape[0] * final_ratings_matrix.shape[1]
 
 # Calculate the density of the ratings matrix (ratio of given ratings to possible ratings)
-density = (given_num_of_ratings / possible_num_of_ratings)
-density *= 100
+Density = (given_num_of_ratings / possible_num_of_ratings)
+Density *= 100
 
-# Print the density of the ratings matrix as a percentage
-print('density: {:4.2f}%'.format(density))
+# Print the Density of the ratings matrix as a percentage
+print('Density: {:4.2f}%'.format(Density))
 print(given_num_of_ratings)
 print(possible_num_of_ratings)
 
@@ -134,6 +137,8 @@ popularity_recommendations = train_data_sort.head(5)
 
 # Printing the top 5 recommendations
 print(popularity_recommendations)
+print("-----------------------------------------------------\n")
+
 #### recommend base on popularity
 # Defining a function to recommend products to a user
 def recommend(user_id):
@@ -194,7 +199,6 @@ preds_df.head()
 def recommend_items(userID, pivot_df, preds_df, num_recommendations):
     user_idx = userID - 1  # Convert to 0-based index
     if user_idx < 0 or user_idx >= pivot_df.shape[0]:
-        print("Invalid userID")
         return
 
     sorted_user_ratings = pivot_df.iloc[user_idx].sort_values(ascending=False)
