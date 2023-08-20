@@ -69,7 +69,7 @@ most_rated_df = most_rated.reset_index()
 most_rated_df.index=most_rated_df.index+1;
 most_rated_df.columns=['User ID','Most Rated']
 # Print the top 10 users based on ratings
-print('\n----Top 10 users based on ratings----\n', most_rated)
+print('\n----Top 10 users based on ratings----\n', most_rated_df)
 print("-------------------------------------------------\n")
 
 
@@ -114,7 +114,7 @@ Density = (given_num_of_ratings / possible_num_of_ratings)
 Density *= 100
 
 # Print the Density of the ratings matrix as a percentage
-print('Density: {:4.2f}%'.format(Density))
+print('--------Density: {:4.2f}%'.format(Density),'--------')
 print(given_num_of_ratings)
 print(possible_num_of_ratings)
 
@@ -149,19 +149,21 @@ print("-------------------------------------------------\n")
 
 #### recommend base on popularity
 # Defining a function to recommend products to a user
+print("-------------------------------------------------\n")
 def recommend(user_id):
     # Using the popularity_recommendations DataFrame as the user recommendations
     user_recommendations = popularity_recommendations
 
     # Adding a 'userId' column with the specified user_id for which recommendations are being generated
+    print("-------------------------------------------------\n")
     user_recommendations['userId'] = user_id
-
     # Reordering the columns, bringing 'userId' to the front
     cols = user_recommendations.columns.tolist()
     cols = cols[-1:] + cols[:-1]
     user_recommendations = user_recommendations[cols]
-
+    print("-------------------------------------------------\n")
     return user_recommendations
+
 
 
 # List of user choices for recommendations
@@ -169,6 +171,7 @@ find_recom = [25, 140, 190]
 
 # Iterating over each user ID in the find_recom list
 for i in find_recom:
+    print("-------------------------------------------------\n")
     print("The list of recommendations for the userId: %d\n" % i)
     print(recommend(i))
     print("\n")
@@ -194,7 +197,8 @@ U, sigma, Vt = svds(pivot_matrix, k=k)
 
 # Converting sigma into a diagonal matrixx
 sigma = np.diag(sigma)
-print('Diagonal matrix: \n', sigma)
+print('DIAGONAL MATRIX: \n', sigma)
+print("-------------------------------------------------\n")
 
 # Calculating the predicted ratings by performing matrix multiplication using U, sigma, and Vt
 all_user_predicted_ratings = np.dot(np.dot(U, sigma), Vt)
@@ -241,7 +245,7 @@ rmse_df.head()
 
 # Calculating the Root Mean Square Error (RMSE) between the average actual ratings and average predicted ratings
 RMSE = round((((rmse_df.Avg_actual_ratings - rmse_df.Avg_predicted_ratings) ** 2).mean() ** 0.5), 5)
-print('\nRMSE SVD Model = {} \n'.format(RMSE))
+print('--------RMSE SVD Model = {} '.format(RMSE),'--------')
 
 # Recommending items for a specific user (user ID = 9) with a specified number of recommendations
 userID = 9
