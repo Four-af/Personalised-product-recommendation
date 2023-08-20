@@ -155,14 +155,15 @@ def recommend(user_id):
     user_recommendations = popularity_recommendations
 
     # Adding a 'userId' column with the specified user_id for which recommendations are being generated
+    print("-------------------------------------------------\n")
     user_recommendations['userId'] = user_id
-
     # Reordering the columns, bringing 'userId' to the front
     cols = user_recommendations.columns.tolist()
     cols = cols[-1:] + cols[:-1]
     user_recommendations = user_recommendations[cols]
-
+    print("-------------------------------------------------\n")
     return user_recommendations
+
 
 
 # List of user choices for recommendations
@@ -170,6 +171,7 @@ find_recom = [25, 140, 190]
 
 # Iterating over each user ID in the find_recom list
 for i in find_recom:
+    print("-------------------------------------------------\n")
     print("The list of recommendations for the userId: %d\n" % i)
     print(recommend(i))
     print("\n")
